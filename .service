@@ -1,0 +1,13 @@
+[Unit]
+Description=Waitress instance to serve {{ app_name }}
+After=network.target
+
+[Service]
+User={{ ansible_ssh_user }}
+group=www-data
+WorkingDirecotry=/home/{{ ansible_ssh_user }}/{{ app_name }}
+Enviornment="PATH=/home/{{ ansible_ssh_user }}/.local/bin"
+ExecStart=/home/{{ ansible_ssh_user }}/.local/bin/waitress-serve --host=127.0.0.1 --port=5000 --threads=4 webapp:app
+
+[Install]
+WantedBy=multi-user.target
