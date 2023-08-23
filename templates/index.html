@@ -9,22 +9,24 @@
         <section>
             <form method="POST" action="/">
                 <label for='whatToGen'><h2>Password type to generate:</label><select name="whatToGen" id="whatToGen">
-                    <option value="Memorable" {% if whatToGen == 'Memorable' %} selected {% endif%}>Memorable</option>
-                    <option value="Strong" {% if whatToGen == 'Strong' %} selected {% endif%}>Strong</option>
-                    <option value="FortKnox" {% if whatToGen == 'FortKnox' %} selected {% endif%}>Fort Knox</option>
+                    <option value="Memorable" {% if whatToGen == 'Memorable' %} selected {% endif %}>Memorable</option>
+                    <option value="Strong" {% if whatToGen == 'Strong' %} selected {% endif %}>Strong</option>
+                    <option value="FortKnox" {% if whatToGen == 'FortKnox' %} selected {% endif %}>Fort Knox</option>
                 </select></h2>
                 <div class="refresh"><a href="javascript:location.reload(true)">Reload Defaults</a></div>
                 <div class="refresh"><input type="submit" value="Generate Passwords"></div>
             </form>
-            <div id="decent_pw" class="key_section">
+            <div id="pass_block" class="key_section">
+                {% if string01|length <= 17 %}
                 <h2>Memorable Passwords: <span class="description"> Perfect for securing your computer or mobile device, or somewhere brute force is detectable.</span></h2>
-                <div class="shortPass">
-                    <input type="text" id="txt_decent_pw_0" name="txt_decent_pw_0" value="{{ string01 }}" readonly onClick="this.setSelectionRange(0, this.value.length)"/>
-                    <input type="text" id="txt_decent_pw_1" name="txt_decent_pw_1" value="{{ string02 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
-                    <input type="text" id="txt_decent_pw_2" name="txt_decent_pw_2" value="{{ string03 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
-                    <input type="text" id="txt_decent_pw_3" name="txt_decent_pw_3" value="{{ string04 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
-                    <input type="text" id="txt_decent_pw_4" name="txt_decent_pw_4" value="{{ string05 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
-                    <input type="text" id="txt_decent_pw_5" name="txt_decent_pw_5" value="{{ string06 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
+                <div class="shortPass"> {% endif %}
+                {% if string01|length >= 18 %} <div class="longPass"> {% endif %}
+                    <input type="text" id="txt_pw_0" name="txt_pw_0" value="{{ string01 }}" readonly onClick="this.setSelectionRange(0, this.value.length)"/>
+                    <input type="text" id="txt_pw_1" name="txt_pw_1" value="{{ string02 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
+                    <input type="text" id="txt_pw_2" name="txt_pw_2" value="{{ string03 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
+                    <input type="text" id="txt_pw_3" name="txt_pw_3" value="{{ string04 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
+                    <input type="text" id="txt_pw_4" name="txt_pw_4" value="{{ string05 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
+                    <input type="text" id="txt_pw_5" name="txt_pw_5" value="{{ string06 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">
                 </div>
             </div>
         </section>
