@@ -8,12 +8,11 @@
         <h1><center>Super Secret Generator</center></h1>
         <section>
             <form method="POST" action="/">
-                <label for='whatToGen'><h2>Password type to generate:</label>
-                    <select name="whatToGen" id="whatToGen">
-                        {% for option in dropdown1Llist %}
-                          <option value="{{ option }}" SELECTED>{{ option }}</option>
-                        {% endfor %}     
-                    </select></h2>
+                <label for='whatToGen'><h2>Password type to generate:</label><select name="whatToGen" id="whatToGen">
+                    <option value="Memorable" {% if whatToGen == 'Memorable' %} selected {% endif %}>Memorable</option>
+                    <option value="Strong" {% if whatToGen == 'Strong' %} selected {% endif %}>Strong</option>
+                    <option value="FortKnox" {% if whatToGen == 'FortKnox' %} selected {% endif %}>Fort Knox</option>
+                </select></h2>
                 <div class="refresh"><a href="javascript:location.reload(true)">Reload Defaults</a></div>
                 <div class="refresh"><input type="submit" value="Generate Passwords"></div>
             </form>

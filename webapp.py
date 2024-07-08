@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 from pwgen import gen_custom_pass, predefined_pass
+from db_stuff import *
 
 app = Flask(__name__)
 
@@ -9,6 +10,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
+    # grab list for drop down
+    _dropdown1List = GetListOfNamesOfOptions()
     _paramLength = 14
     _paramLower = 1
     _paramUpper = 1
