@@ -65,7 +65,7 @@ def predefined_pass(_option):
         _length = 14
         _chars = string.ascii_letters + string.digits + string.punctuation
 
-    if _option == 'FortKnox':
+    if _option == 'Fortknox':
         _length = 20
         _chars = string.ascii_letters + string.digits + string.punctuation
         #addCharGroups(_chars, string.ascii_letters)

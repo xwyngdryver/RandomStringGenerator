@@ -10,17 +10,19 @@
             <form method="POST" action="/">
                 <label for='whatToGen'><h2>Password type to generate:</label>
                     <select name="whatToGen" id="whatToGen">
-                        {% for option in dropdown1Llist %}
-                          <option value="{{ option }}" SELECTED>{{ option }}</option>
+                        {% for option in _dropdown1List %}
+                          <option value="{{ option }}" {% if whatToGen == option %} SELECTED {% endif %}>{{ option }}</option>
+                          <!--<option value="{{ option }}">{{ option }}</option>-->
                         {% endfor %}     
                     </select></h2>
                 <div class="refresh"><a href="javascript:location.reload(true)">Reload Defaults</a></div>
                 <div class="refresh"><input type="submit" value="Generate Passwords"></div>
             </form>
             <div id="pass_block" class="key_section">
-                {% if string01|length <= 17 %}
-                <h2>Memorable Passwords: <span class="description"> Perfect for securing your computer or mobile device, or somewhere brute force is detectable.</span></h2>
-                <div class="shortPass"> {% endif %}
+                {% if string01|length <= 170 %} <!-- hide description if secure string over 170 characters -->
+                <h2>{{ whatToGen }} Passwords: <span class="description"> {{ _description }}</span></h2>
+                {% endif %}
+                {% if string01|length < 18 %} <div class="shortPass"> {% endif %}
                 {% if string01|length >= 18 %} <div class="longPass"> {% endif %}
                     <input type="text" id="txt_pw_0" name="txt_pw_0" value="{{ string01 }}" readonly onClick="this.setSelectionRange(0, this.value.length)"/>
                     <input type="text" id="txt_pw_1" name="txt_pw_1" value="{{ string02 }}" readonly onClick="this.setSelectionRange(0, this.value.length)">

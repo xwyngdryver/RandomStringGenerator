@@ -8,54 +8,48 @@ app = Flask(__name__)
 #def home0():
 #        return render_template('index.html')
 
+# Global Variables
+# creating list of options
+getDropDownOptions = GetListOfNamesOfOptions()
+unCleanDropDownOptions = list(getDropDownOptions)
+_dropdown1List = CleanTheList(unCleanDropDownOptions)
+
 @app.route('/', methods=['POST', 'GET'])
 def home():
     # grab list for drop down
-    _dropdown1List = GetListOfNamesOfOptions()
-    _paramLength = 14
-    _paramLower = 1
-    _paramUpper = 1
-    _paramNumb = 1
-    _paramSpecial = 1
-    _paramExclude = 1
+    #_dropdown1List = CleanTheList(unCleanDropDownOptions)
+    #_paramLength = 14
+    #_paramLower = 1
+    #_paramUpper = 1
+    #_paramNumb = 1
+    #_paramSpecial = 1
+    #_paramExclude = 1
+        
 
     if request.method == 'POST':
 
         use_optType = request.form.get('whatToGen')
-
-        if use_optType == 'Memerable':
-            _paramLength = 10
-            _paramLower = 1
-            _paramUpper = 1
-            _paramNumb = 0
-            _paramSpecial = 0
-            _paramExclude = 0
-        
-        if use_optType == 'Strong':
-            _paramLength = 14
-            _paramLower = 1
-            _paramUpper = 1
-            _paramNumb = 1
-            _paramSpecial = 1
-            _paramExclude = 1
-
-        if use_optType == 'FortKnox':
-            _paramLength = 20
-            _paramLower = 1
-            _paramUpper = 1
-            _paramNumb = 1
-            _paramSpecial = 1
-            _paramExclude = 0
-        
-        string01 = predefined_pass(use_optType)
-        string02 = predefined_pass(use_optType)
-        string03 = predefined_pass(use_optType)
-        string04 = predefined_pass(use_optType)
-        string05 = predefined_pass(use_optType)
-        string06 = predefined_pass(use_optType)
-        
+        description = SearchDataBase("Options", "Desc", "Name", use_optType)
+        description = SearchDataBase("Options", "Desc", "Name", use_optType)
+        _length = SearchDataBase("Options", "NumbOfChars", "Name", use_optType)
+        _useUpper = SearchDataBase("Options", "UCase", "Name", use_optType)
+        _useLower = SearchDataBase("Options", "LCase", "Name", use_optType)
+        _useNumber = SearchDataBase("Options", "Numb", "Name", use_optType)
+        _useSpecial = SearchDataBase("Options", "Special", "Name", use_optType)
+        _excludeAmbiguous = SearchDataBase("Options", "ExcludeAmbiguous", "Name", use_optType)
+    
+    
+        string01 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+        string02 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+        string03 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+        string04 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+        string05 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+        string06 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
         return render_template('index.html',
+                               # HTML_jinja_var=_python_var
+                               _dropdown1List=_dropdown1List,
                                whatToGen=use_optType,
+                               _description=description,
                                string01=string01,
                                string02=string02,
                                string03=string03,
@@ -63,17 +57,28 @@ def home():
                                string05=string05,
                                string06=string06)
 
+    # webpage default settings
     use_optType = "Strong"
+    description = SearchDataBase("Options", "Desc", "Name", use_optType)
+    _length = SearchDataBase("Options", "NumbOfChars", "Name", use_optType)
+    _useUpper = SearchDataBase("Options", "UCase", "Name", use_optType)
+    _useLower = SearchDataBase("Options", "LCase", "Name", use_optType)
+    _useNumber = SearchDataBase("Options", "Numb", "Name", use_optType)
+    _useSpecial = SearchDataBase("Options", "Special", "Name", use_optType)
+    _excludeAmbiguous = SearchDataBase("Options", "ExcludeAmbiguous", "Name", use_optType)
     
-    string01 = predefined_pass(use_optType)
-    string02 = predefined_pass(use_optType)
-    string03 = predefined_pass(use_optType)
-    string04 = predefined_pass(use_optType)
-    string05 = predefined_pass(use_optType)
-    string06 = predefined_pass(use_optType)
+    
+    string01 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+    string02 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+    string03 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+    string04 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+    string05 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
+    string06 = gen_custom_pass(_length, _useUpper, _useLower, _useNumber, _useSpecial, _excludeAmbiguous)
         
     return render_template('index.html',
-                           whatToGen='Strong',
+                           _dropdown1List=_dropdown1List,
+                           whatToGen=use_optType,
+                           _description=description,
                            string01=string01,
                            string02=string02,
                            string03=string03,
@@ -114,3 +119,4 @@ def CustomPass():
 
 if __name__== '__main__':
     app.run(debug=True)
+
